@@ -35,6 +35,9 @@ php yii migrate/up --migrationPath=@vendor/alpiiscky/yii2-comments/src/migration
 ]
 ```
 
+Если необходимо чтобы комментарии публиковались сразу, без модерации, то указать переменную 
+```'new_comments' => 1 ``` в файле конфигурации ```params``` проекта
+
 ## Использование
 
 ```

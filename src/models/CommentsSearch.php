@@ -92,6 +92,7 @@ class CommentsSearch extends Comments
             ->andFilterWhere(['like', 'language', $this->language])
             ->andFilterWhere(['like', 'ip', $this->ip]);
 
+        $query->orderBy(['id' => SORT_DESC]);
         return $dataProvider;
     }
 }

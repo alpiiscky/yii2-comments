@@ -18,7 +18,6 @@ $cacheProperties = CommentsHelper::getCacheProperties($cacheTag);
 ?>
 
 <div id="<?= $widget->wrapperId ?>" class="comments">
-
     <?php if ($widget->defaultCommentsView === 'restricted') : ?>
         <div id="<?= $widget->showCommentsId ?>" class="show-comments text-center">
             <a href="#" data-action="show-comments">
@@ -55,6 +54,8 @@ $cacheProperties = CommentsHelper::getCacheProperties($cacheTag);
 
             </div>
         </div>
+
+        <?= \app\widgets\Alert::widget() ?>
 
         <?php if ($widget->formPosition === 'top') {
             echo $this->render($widget->formView, [

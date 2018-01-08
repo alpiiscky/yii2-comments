@@ -2,6 +2,7 @@
 
 namespace alpiiscky\comments\controllers;
 
+use alpiiscky\comments\models\Comments;
 use Yii;
 use yii\web\NotFoundHttpException;
 use alpiiscky\comments\Module as CommentsModule;
@@ -108,6 +109,23 @@ class ManageController extends \yii\web\Controller
         }
     }
 
+    public function actionSuccess($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = Comments::STATUS_PUBLISHED;
+        $model->save(false);
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionError($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = Comments::STATUS_SPAM;
+        $model->save(false);
+
+        return $this->redirect(['index']);
+    }
     /**
      * Deletes an existing Comments model and nested Comments models.
      * If deletion is successful, the browser will be redirected to the 'index' page.

@@ -451,4 +451,29 @@ class Comments extends \yii\db\ActiveRecord
             ];
         }
     }
+
+    public function getStatuses()
+    {
+        switch ($this->status) {
+            case 0:
+                return '<label class="label label-warning">На модерации</label>';
+                break;
+            case 1:
+                return '<label class="label label-success">Опубликовано</label>';
+                break;
+            case 2:
+                return '<label class="label label-danger">Спам</label>';
+                break;
+        }
+        return '';
+    }
+
+    public function getStatusesArray()
+    {
+        return [
+            0 => 'На модерации',
+            1 => 'Опубликовано',
+            2 => 'Спам'
+        ];
+    }
 }

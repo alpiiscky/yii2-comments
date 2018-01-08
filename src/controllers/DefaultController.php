@@ -2,6 +2,7 @@
 
 namespace alpiiscky\comments\controllers;
 
+use alpiiscky\comments\models\Comments;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
@@ -68,6 +69,7 @@ class DefaultController extends \yii\web\Controller
     public function actionCreate($data)
     {
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+
             $comment = new CommentsModel(
                 array_merge(
                     CommentsHelper::decryptData($data),
@@ -84,11 +86,16 @@ class DefaultController extends \yii\web\Controller
             }
 
             if ($comment->load(Yii::$app->request->post()) && $comment->validate()) {
+                $comment->newCommentStatus = isset(Yii::$app->params['new_comments']) ? Comments::STATUS_PUBLISHED : Comments::STATUS_PENDING;
                 if ($comment->save()) {
                     if ($comment->username !== null && $comment->email !== null) {
                         CommentsHelper::setUsername($comment->username);
                         CommentsHelper::setEmail($comment->email);
                     }
+
+
+                    if ($comment->newCommentStatus == Comments::STATUS_PENDING)
+                        Yii::$app->session->setFlash('success', 'Комментарий добавлен и появится после модерации');
 
                     TagDependency::invalidate(
                         Yii::$app->cache,
