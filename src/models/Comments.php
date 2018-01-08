@@ -59,7 +59,7 @@ class Comments extends \yii\db\ActiveRecord
      * By default comments are published without moderation.
      * @var int
      */
-    public $newCommentStatus = self::STATUS_PUBLISHED;
+    public $newCommentStatus = self::STATUS_PENDING;
 
     /**
      * Pattern that will be applied for user names on comment form.
